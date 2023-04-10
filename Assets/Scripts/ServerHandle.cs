@@ -23,6 +23,20 @@ public class ServerHandle
 
     public static void PlayerMove(int _fromClient, Packet _packet)
     {
-        // TODO: Handle player moves
+        int row = _packet.ReadInt();
+        int column = _packet.ReadInt();
+        Position position = new Position(row, column);
+        int player = _packet.ReadInt();
+        int outflankedCount = _packet.ReadInt();
+        List<Position> outflanked = new List<Position>();
+        for (int i = 0; i < outflankedCount; i++)
+        {
+            int outflankedRow = _packet.ReadInt();
+            int outflankedColumn = _packet.ReadInt();
+            outflanked.Add(new Position(outflankedRow, outflankedColumn));
+        }
+        
+        MoveInfo moveInfo = new MoveInfo(player, position, outflanked);
+        ServerSend.GameUpdate(moveInfo);
     }
 }
