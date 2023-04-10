@@ -29,7 +29,7 @@ public class ServerSend
     /// <summary>Sends a packet to all clients except one via TCP.</summary>
     /// <param name="_exceptClient">The client to NOT send the data to.</param>
     /// <param name="_packet">The packet to send.</param>
-    private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
+    private static void SendTCPDataToAllExcept(int _exceptClient, Packet _packet)
     {
         _packet.WriteLength();
         for (int i = 1; i <= Server.MaxPlayers; i++)
@@ -81,14 +81,21 @@ public class ServerSend
         }
     }
 
-    /// <summary>Sends a message to the given client.</summary>
-    /// <param name="_toClient">The client to send the packet to.</param>
-    /// <param name="_msg">The message to send.</param>
-    public static void GameUpdate()
+    public static void GameUpdate(MoveInfo moveInfo)
     {
         using (Packet _packet = new Packet((int)ServerPackets.GameUpdate))
         {
-            // TODO: Send game state to all clients
+            _packet.Write(moveInfo.Player);
+            _packet.Write(moveInfo.Position.Row);
+            _packet.Write(moveInfo.Position.Column);
+            _packet.Write(moveInfo.Outflanked.Count);
+            foreach (Position position in moveInfo.Outflanked)
+            {
+                _packet.Write(position.Row);
+                _packet.Write(position.Column);
+            }
+
+            SendTCPDataToAllExcept(moveInfo.Player, _packet);
         }
     }
 
