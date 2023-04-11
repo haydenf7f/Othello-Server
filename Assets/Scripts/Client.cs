@@ -168,14 +168,31 @@ public class Client
 
     public void Matchmaking(int _fromClient)
     {
-        if (Server.clients.Count == 1)
+        
+        int _playerCount = 0;
+
+        foreach (Client _client in Server.clients.Values)
+        {
+            try {
+                if (_client.tcp.socket.Client.RemoteEndPoint != null)
+                {
+                    _playerCount++;
+                }
+            }
+            catch (Exception _ex)
+            {
+                Console.WriteLine($"One of the clients is null: {_ex}");
+            }
+        }
+
+        Debug.Log($"Number of clients: {_playerCount}");
+
+        if (_playerCount == 1)
         {
             ServerSend.ServerMessage(_fromClient, "Waiting for another player to join...");
         }
-        else if (Server.clients.Count == 2)
+        else if (_playerCount == 2)
         {
-            ServerSend.ServerMessage(1, "Starting game...");
-            ServerSend.ServerMessage(2, "Starting game...");
             foreach (Client _client in Server.clients.Values) 
             {
                 ServerSend.StartGame(_client.id, $"Starting a game for Client {_client.id}!");
@@ -185,7 +202,7 @@ public class Client
 
     private void Disconnect()
     {
-        Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
+        Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
 
         player = null;
 

@@ -35,6 +35,8 @@ public class ServerHandle
             int outflankedColumn = _packet.ReadInt();
             outflanked.Add(new Position(outflankedRow, outflankedColumn));
         }
+
+        Debug.Log($"Player {player} moved to ({position.Row}, {position.Column}) and outflanked {outflankedCount} pieces.");
         
         MoveInfo moveInfo = new MoveInfo(player, position, outflanked);
         ServerSend.GameUpdate(moveInfo);

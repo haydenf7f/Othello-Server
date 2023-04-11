@@ -23,6 +23,7 @@ public class ServerSend
         for (int i = 1; i <= Server.MaxPlayers; i++)
         {
             Server.clients[i].tcp.SendData(_packet);
+            Debug.Log($"Sent packet to client {i}");
         }
     }
 
@@ -83,6 +84,8 @@ public class ServerSend
 
     public static void GameUpdate(MoveInfo moveInfo)
     {
+        Debug.Log($"Sending game update to all clients.");
+
         using (Packet _packet = new Packet((int)ServerPackets.GameUpdate))
         {
             _packet.Write(moveInfo.Player);
@@ -95,8 +98,10 @@ public class ServerSend
                 _packet.Write(position.Column);
             }
 
-            SendTCPDataToAllExcept(moveInfo.Player, _packet);
+            SendTCPDataToAll(_packet);
         }
+
+        Debug.Log($"Sent game update to all clients.");
     }
 
     #endregion
