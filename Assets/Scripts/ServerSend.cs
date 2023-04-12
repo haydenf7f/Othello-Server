@@ -88,9 +88,9 @@ public class ServerSend
 
         using (Packet _packet = new Packet((int)ServerPackets.GameUpdate))
         {
-            _packet.Write(moveInfo.Player);
             _packet.Write(moveInfo.Position.Row);
             _packet.Write(moveInfo.Position.Column);
+            _packet.Write(moveInfo.Player);
             _packet.Write(moveInfo.Outflanked.Count);
             foreach (Position position in moveInfo.Outflanked)
             {

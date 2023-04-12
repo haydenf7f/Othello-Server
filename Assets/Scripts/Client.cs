@@ -181,7 +181,7 @@ public class Client
             }
             catch (Exception _ex)
             {
-                Console.WriteLine($"One of the clients is null: {_ex}");
+                Debug.Log($"One of the clients is null: {_ex}");
             }
         }
 
