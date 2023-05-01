@@ -98,7 +98,7 @@ public class ServerSend
             SendTCPDataToAll(_packet);
         }
 
-        Debug.Log($"Sent game update to all clients.");
+        Debug.Log($"Sent game update to all clients.\n\n");
     }
 
     public static void PlayerDisconnected(string _msg) {

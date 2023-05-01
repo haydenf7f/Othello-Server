@@ -36,7 +36,7 @@ public class Server
         // Begin accepting incoming TCP connections asynchronously
         tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
 
-        Debug.Log($"Server started on port {Port}.");
+        Debug.Log($"Server started on port {Port}.\n\n");
     }
 
     // Callback for when a new client connects

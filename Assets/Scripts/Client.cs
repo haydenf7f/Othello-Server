@@ -179,13 +179,10 @@ public class Client
                     _playerCount++;
                 }
             }
-            catch (Exception _ex)
-            {
-                Debug.Log($"One of the clients is null: {_ex}");
-            }
+            catch (Exception){ }
         }
 
-        Debug.Log($"Number of clients: {_playerCount}");
+        Debug.Log($"Number of clients: {_playerCount}\n\n");
 
         if (_playerCount == 1)
         {
