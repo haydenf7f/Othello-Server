@@ -11,6 +11,7 @@ public enum ServerPackets
     ServerMessage,
     StartGame,
     GameUpdate,
+    PlayerDisconnected
 }
 
 /// <summary>Sent from client to server.</summary>

@@ -202,10 +202,9 @@ public class Client
 
     private void Disconnect()
     {
+        ServerSend.PlayerDisconnected("Player disconnected, returning to main menu...");
         Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
-
         player = null;
-
         tcp.Disconnect();
     }
 }
